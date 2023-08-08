@@ -1,28 +1,39 @@
-# What it does
+# How to use it
 
-After running the main.py file, if all libraries are installed, two windows will appear. One is the video feed of your camera, and the other window will appear black until an exam is detected in the feed.
+This program automatically grades multiple-choice tests that have been done using the following template:
 
-Video feed           |  Exam window
-:-------------------------:|:-------------------------:
-![image](https://github.com/XaviMV/multiple-choice-exam-grader/assets/70759474/f82cac3d-832f-447b-af80-1c1798a06e27)  |  <img src="https://github.com/XaviMV/multiple-choice-exam-grader/assets/70759474/6c756d0b-05fa-46b5-9851-bd26bd67575c" width="75%" height="75%" />
+<p align="center">
+  <img width="400" height="566" src="https://github.com/XaviMV/multiple-choice-exam-grader/assets/70759474/0065c948-140f-4d08-8a01-771879749359">
+</p>
 
+What is needed in order to correct the exam is: the cheat sheet of the correct answers (also in the same template), and the exam that needs to be graded.
 
-Only exam sheets made by the "fer_pdf.py" file will be detected. That program outputs a png of an exam with a given number of questions, it then needs to be printed. The created file will look like this:
+After running the GUI.py file this window will open, it displays the video of a detected camera in the computer:
 
-<img src="https://github.com/XaviMV/multiple-choice-exam-grader/assets/70759474/0b2fa9a5-2dbf-41d0-bea3-6aedb1f98db2" width="30%" height="30%" />
+![image](https://github.com/XaviMV/multiple-choice-exam-grader/assets/70759474/78f214bb-bd1a-44bc-b6fc-b60da29df9ad)
 
-And if an exam is detected in the video feed, it will be shown and resized in the exam window
+When the answer sheet is shown in the feed, the "Select answer" button can be pressed. This will detect where all the correct answers are, it will also mark them in order to verify that they have been detected correctly.
 
-Video feed           |  Exam window
-:-------------------------:|:-------------------------:
-![image](https://github.com/XaviMV/multiple-choice-exam-grader/assets/70759474/dbbf7ce4-4e12-4ccd-beb5-a67e04d83433) | <img src="https://github.com/XaviMV/multiple-choice-exam-grader/assets/70759474/45a1230e-05f1-4f2f-bdde-91f5a19e72b9" width="75%" height="75%" />
+![image](https://github.com/XaviMV/multiple-choice-exam-grader/assets/70759474/a6bc4db0-0721-4617-93d0-0218dc2bc511)
 
-When an exam is detected, if the letter "e" is pressed, the marked answers will start to get detected, the frame will freeze and the marked answers will appear inside a green rectangle:
+After this is done, exams can be shown in front of the camera and corrected with the "Grade exam" button. At the bottom left of the window the number of correct, incorrect and not answered questions will be shown.
 
-<img src="https://github.com/XaviMV/multiple-choice-exam-grader/assets/70759474/55116b7f-7675-4c80-873a-c39b2df48aae" width="40%" height="40%" />
+![image](https://github.com/XaviMV/multiple-choice-exam-grader/assets/70759474/926edfcd-de53-40b5-ba49-838132a9d12f)
 
-As you can see not all answers are marked correctly, for the detection to improve the following things need to be done:
+In order to correct more exams just click the "Next exam" button and repeat the last step for every new exam.
 
-- Account for the camera warp, straight lines might seem curved when the camera has a high FOV or the object is too close
+# Improvements
 
-- Train a better neural network to differentiate between marked and not marked answers.
+This project can be improved in many ways.
+
+As of now the detection of correct and incorrect answers is only 99.5% accurate, in order to increase the accuracy the following things could be done:
+
+- Increase the training samples (A total of 3600 samples were used in order to train the neural network that differentiates between marked and not marked answers)
+
+- Reduce video distortion. Due to the high FOV of the camera straight lines in real life might appear curved in the display, this increases the distance between the calculated positions of the answers and the actual position. This can be clearly seen as the answers are not in the middle of the green or red boxes that surround them:
+
+Centered answer:
+![image](https://github.com/XaviMV/multiple-choice-exam-grader/assets/70759474/e3a71225-9bf1-4c30-a5bb-a6fdcc1c00db)
+
+Not so centered answer:
+![image](https://github.com/XaviMV/multiple-choice-exam-grader/assets/70759474/bbdd3919-f0f2-42ff-ba32-b76134eb5ddd)

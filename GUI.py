@@ -13,7 +13,8 @@ def seleccionar_plantilla(): # Mirar que hi hagi algun examen visible i mirar qu
 
 	if not resposta_seleccionada: # S'ha clicat per seleccionar la plantilla
 		resposta_seleccionada = True
-		bot_select_resposta.configure(text="Deseleccionar")
+		#bot_select_resposta.configure(text="Deseleccionar")
+		bot_select_resposta.configure(text="Unselect")
 
 		img_plantilla = get_examen(cam_video)
 
@@ -26,7 +27,8 @@ def seleccionar_plantilla(): # Mirar que hi hagi algun examen visible i mirar qu
 
 	else:
 		resposta_seleccionada = False
-		bot_select_resposta.configure(text="Seleccionar resposta")
+		#bot_select_resposta.configure(text="Seleccionar resposta")
+		bot_select_resposta.configure(text="Select answer")
 
 
 def marcar_respostes(img, num_preguntes):
@@ -159,7 +161,8 @@ def corregir_examen(): # Mirar que hi hagi alguna plantilla seleccionada i algun
 
 	if not corregint_examen and resposta_seleccionada: # Corregim el examen
 		corregint_examen = True
-		bot_corregir.configure(text="Seguent examen")
+		#bot_corregir.configure(text="Seguent examen")
+		bot_corregir.configure(text="Next exam")
 
 
 
@@ -195,19 +198,23 @@ def corregir_examen(): # Mirar que hi hagi alguna plantilla seleccionada i algun
 		a,b,c,d,img_corregit = contar_respostes_correctes(respostes, img_corregit)
 		img_corregit = processar_imatge_per_CTK(img_corregit, amplada)
 
-		text = "Correctes: "
+		#text = "Correctes: "
+		text = "Correct: "
 
 		text += str(a)
 
-		text += "\nIncorrectes: "
+		#text += "\nIncorrectes: "
+		text += "\nIncorrect: "
 
 		text += str(b)
 
-		text += "\nNo contestades: "
+		#text += "\nNo contestades: "
+		text += "\nNot answered: "
 
 		text += str(c)
 
-		text += "\nAltres: "
+		#text += "\nAltres: "
+		text += "\nOther: "
 
 		text += str(d)
 
@@ -218,7 +225,8 @@ def corregir_examen(): # Mirar que hi hagi alguna plantilla seleccionada i algun
 
 	else: # Preparem per mirar el seguent examen
 		corregint_examen = False
-		bot_corregir.configure(text="Corregir examen")
+		#bot_corregir.configure(text="Corregir examen")
+		bot_corregir.configure(text="Grade exam")
 		text_respostes.configure(text="")
 
 
@@ -309,10 +317,12 @@ app.geometry("1080x720")
 
 # Botons
 
-bot_corregir = customtkinter.CTkButton(app, text="Corregir examen", command=corregir_examen)
+#bot_corregir = customtkinter.CTkButton(app, text="Corregir examen", command=corregir_examen)
+bot_corregir = customtkinter.CTkButton(app, text="Grade exam", command=corregir_examen)
 bot_corregir.grid(row=1, column=2, padx=20, pady=20)
 
-bot_select_resposta = customtkinter.CTkButton(app, text="Seleccionar resposta", command=seleccionar_plantilla)
+#bot_select_resposta = customtkinter.CTkButton(app, text="Seleccionar resposta", command=seleccionar_plantilla)
+bot_select_resposta = customtkinter.CTkButton(app, text="Select answer", command=seleccionar_plantilla)
 bot_select_resposta.grid(row=1, column=1, padx=20, pady=20)
 
 

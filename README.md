@@ -37,3 +37,7 @@ Centered answer:
 
 Not so centered answer:
 ![image](https://github.com/XaviMV/multiple-choice-exam-grader/assets/70759474/bbdd3919-f0f2-42ff-ba32-b76134eb5ddd)
+
+The interface could also be improved
+
+More templates could be added: more than 3 possible answers per question and not only a 60 question template

@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 import time as t
 import copy
+import tensorflow as tf
 
 
 def ordenar(x): # Per ordenar els arucos amb ids creixents
@@ -117,7 +118,7 @@ def fer_pdf(num_preguntes, nom_fitxer):
     return pdf
 
 def mark_circles(imatge, num_preguntes):
-    # INPUT: Imatge de l'examen (ja processat i en forma A4) i numero de preguntes
+    # INPUT: Imatge de l'examen (ja processat amb la funció get_examen()) i numero de preguntes
     # OUTPUT: Retorna una llista amb la posicó teorica de cada resposta
 
     height, width, _ = imatge.shape
@@ -137,3 +138,17 @@ def mark_circles(imatge, num_preguntes):
             yield [int(pos_x+0.09067*width*j), pos_y]
 
     return
+
+
+def respostes_marcades(model, final, coordenades, size): # Retorna una llista de booleans on cada element representa si la resposta esta marcada o no (segons el model de tensorflow donat)
+    imatges = []
+    for i in coordenades:
+        imatges.append(final[int(i[1]-size/2):int(i[1]+size/2), int(i[0]-size/2):int(i[0]+size/2)])
+
+    #imatges = np.expand_dims(imatges, axis=0)
+    imatges = tf.data.Dataset.from_tensor_slices(imatges).batch(1)
+    r = list(model.predict(imatges, verbose = 0))
+    for i in range(len(r)):
+        r[i] = np.argmax(r[i])
+
+    return r
